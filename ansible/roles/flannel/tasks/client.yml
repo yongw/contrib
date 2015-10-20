@@ -4,7 +4,14 @@
   args:
         name: flannel
         state: latest
-  when: not is_atomic
+  when: not is_atomic and ansible_distribution != "OracleLinux"
+
+- name: Install flannel | OracleLinux
+  yum:
+    pkg=flannel
+    state=latest
+    enablerepo=virt7-testing
+  when: not is_atomic and ansible_distribution == "OracleLinux"
 
 - name: Install Flannel config file
   template: src=flanneld.j2 dest=/etc/sysconfig/flanneld

@@ -22,6 +22,7 @@
     dest="{{ kube_manifest_dir }}"
     force=yes
   when: cluster_logging
+  environment: proxy_env
 
 - name: Get the node token values
   slurp:

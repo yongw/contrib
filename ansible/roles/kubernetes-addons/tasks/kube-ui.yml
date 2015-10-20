@@ -10,3 +10,4 @@
   with_items:
     - kube-ui-rc.yaml
     - kube-ui-svc.yaml
+  environment: proxy_env

@@ -1,0 +1,4 @@
+---
+- name: OracleLinux | Remove docker window manager on Oralce Linux
+  yum: pkg=docker state=absent
+  when: ansible_distribution_major_version == "20"

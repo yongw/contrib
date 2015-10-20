@@ -1,0 +1,22 @@
+---
+- name: OracleLinux | Install Testing Oracle Linux 7 repo
+  copy: src=virt7-testing.repo dest=/etc/yum.repos.d/virt7-testing.repo
+
+- name: OracleLinux | Install docker-common-candidate Oracle Linux 7 repo
+  copy: src=virt7-docker-common-candidate.repo dest=/etc/yum.repos.d/virt7-docker-common-candidate.repo
+
+- name: OracleLinux | Install docker-engin Oracle Linux 7 repo
+  copy: src=docker.repo dest=/etc/yum.repos.d/docker.repo
+
+- name: OracleLinux | Register fact test_yum_proxy
+  shell: grep "^proxy=" /etc/yum.conf
+  register: test_yum_proxy
+  ignore_errors: True
+
+- name: OracleLinux | Add proxy for yum
+  lineinfile: dest=/etc/yum.conf line="proxy={{ http_proxy }}"
+  when: test_yum_proxy.stdout == "" and http_proxy != ""
+
+#- name: OracleLinux | Set proxy for yum
+#  lineinfile: dest=/etc/yum.conf regexp="^proxy=*+" line="proxy={{ http_proxy }}"
+#  when: test_yum_proxy.stdout != "" and http_proxy != ""

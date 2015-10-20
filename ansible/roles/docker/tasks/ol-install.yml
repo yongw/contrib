@@ -1,0 +1,7 @@
+---
+- name: OracleLinux | Install Docker
+  yum:
+    name=docker-engine
+    state=latest
+    enablerepo=docker
+  when: not is_atomic

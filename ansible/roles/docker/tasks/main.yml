@@ -5,8 +5,11 @@
 - include: apt-docker-install.yml
   when: ansible_distribution == "Ubuntu"
 
+  - include: ol-install.yml
+  when: ansible_distribution == "OracleLinux"
+
 - include: generic-install.yml
-  when: ansible_distribution != "Debian" and ansible_distribution != "Ubuntu"
+  when: ansible_distribution != "Debian" and ansible_distribution != "Ubuntu" and ansible_distribution != "OracleLinux"
 
 - name: Verify docker config files exists
   file: path={{ docker_config_dir }}/{{ item }} state=touch
@@ -16,7 +19,7 @@
     - docker-network
 
 - name: Turn down docker logging
-  lineinfile: dest={{ docker_config_dir }}/docker regexp=^OPTIONS= line=OPTIONS="'--selinux-enabled --log-level=warn'"
+  lineinfile: dest={{ docker_config_dir }}/docker regexp=^OPTIONS= line=OPTIONS="'--selinux-enabled --log-level=warn --graph={{ docker_graph_dir }}'"
   notify:
     - restart docker
   when: ansible_distribution != "Ubuntu"
@@ -44,6 +47,13 @@
   when: insecure_registrys is defined and insecure_registrys > 0
   notify:
     - restart docker
+
+- name: Write docker systemd unit file for OracleLinux
+  copy: src=docker.service dest=/usr/lib/systemd/system
+  notify:
+    - reload systemd
+    - restart docker
+  when: ansible_distribution == "OracleLinux"
 
 - name: Enable Docker
   service: name=docker enabled=yes

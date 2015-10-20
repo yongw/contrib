@@ -16,6 +16,14 @@
 - name: Install from github
   include: github-release.yml
   when: etcd_source_type == "github-release"
+- name: OracleLinux | Install etcd
+  yum:
+    pkg=etcd
+    state=latest
+    enablerepo=virt7-testing
+  notify:
+    - restart etcd
+  when: not is_atomic and ansible_distribution == "OracleLinux"
 
 - name: Write etcd config file
   template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf

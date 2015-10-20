@@ -12,3 +12,4 @@
     - es-service.yaml
     - kibana-controller.yaml
     - kibana-service.yaml
+  environment: proxy_env

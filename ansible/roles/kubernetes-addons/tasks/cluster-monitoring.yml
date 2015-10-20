@@ -13,3 +13,4 @@
     - heapster-service.yaml
     - influxdb-grafana-controller.yaml
     - influxdb-service.yaml
+  environment: proxy_env

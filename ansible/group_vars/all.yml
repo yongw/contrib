@@ -14,7 +14,7 @@ cluster_name: cluster.local
 # Account name of remote user. Ansible will use this user account to ssh into
 # the managed machines. The user must be able to use sudo without asking
 # for password unless ansible_sudo_pass is set
-#ansible_ssh_user: root
+ansible_ssh_user: cloud
 
 # password for the ansible_ssh_user. If this is unset you will need to set up
 # ssh keys so a password is not needed.
@@ -26,10 +26,15 @@ cluster_name: cluster.local
 # A list of insecure registrys you night need to define
 insecure_registrys:
 #  - "gcr.io"
+  - "dockerlab.int.thomsonreuters.com:30000"
+  
+# directory to run Docker
+#docker_graph_dir: /usr/lib/docker
+docker_graph_dir: /media/b/docker
 
 # If you need a proxy for the docker daemon define these here
-#http_proxy: "http://proxy.example.com:3128"
-#https_proxy: "http://proxy.example.com:3128"
+http_proxy: "http://webproxy.pln.corp.services:80"
+https_proxy: "http://webproxy.pln.corp.services:80"
 
 # Kubernetes internal network for services.
 # Kubernetes services will get fake IP addresses from this range.
@@ -81,3 +86,6 @@ dns_replicas: 1
 # There are other variable in roles/kubernetes/defaults/main.yml but changing
 # them comes with a much higher risk to your cluster. So proceed over there
 # with caution.
+proxy_env:
+  http_proxy: http://webproxy.pln.corp.services:80
+  https_proxy: http://webproxy.pln.corp.services:80

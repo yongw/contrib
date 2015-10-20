@@ -16,6 +16,7 @@
     url=https://raw.githubusercontent.com/GoogleCloudPlatform/kubernetes/master/cluster/saltbase/salt/kube-addons/namespace.yaml
     dest="{{ kube_config_dir }}/addons/"
     force=yes
+  environment: proxy_env
 
 - include: dns.yml
   when: dns_setup

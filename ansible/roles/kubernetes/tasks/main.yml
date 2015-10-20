@@ -2,6 +2,9 @@
 - include: fedora.yml
   when: ansible_distribution == "Fedora"
 
+- include: ol.yml
+  when: ansible_distribution == "OracleLinux"
+
 - name: Update {{ kube_script_dir }} if this is atomic
   set_fact:
     kube_script_dir: "/usr/local/libexec/kubernretes"
