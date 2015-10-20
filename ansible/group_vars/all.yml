@@ -89,3 +89,12 @@ dns_replicas: 1
 proxy_env:
   http_proxy: http://webproxy.pln.corp.services:80
   https_proxy: http://webproxy.pln.corp.services:80
+
+# cloud provider settings which will be used to create kubernetes volume
+cloud: false
+cloud-provider: openstack
+open-auth-url: http://identity.example.com:3000/v2.0
+open-username: username
+open-password: password
+open-region: region
+open-tenant-id: 0773b8718713433994980d8426ab6ed7
