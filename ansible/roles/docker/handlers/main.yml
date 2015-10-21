@@ -38,3 +38,7 @@
 
 - name: docker start service
   service: name=docker state=started
+
+- name: reload systemd
+  sudo: yes
+  command: systemctl daemon-reload
