@@ -5,7 +5,7 @@
 - include: apt-docker-install.yml
   when: ansible_distribution == "Ubuntu"
 
-  - include: ol-install.yml
+- include: ol-install.yml
   when: ansible_distribution == "OracleLinux"
 
 - include: generic-install.yml
