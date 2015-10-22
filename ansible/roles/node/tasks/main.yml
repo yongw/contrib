@@ -53,7 +53,7 @@
   when: config_cloud_provider
   notify:
     - restart kubelet
-	
+
 - name: Enable kubelet
   service: name=kubelet enabled=yes 
   notify:
